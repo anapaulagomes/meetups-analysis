@@ -1,5 +1,5 @@
 import requests
-#from api_chave import chave
+from api_chave import chave
 import json
 import sys
 """
