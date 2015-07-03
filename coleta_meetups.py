@@ -1,5 +1,5 @@
 import requests
-from api_chave import chave
+#from api_chave import chave
 import json
 import sys
 """
@@ -17,7 +17,7 @@ def coleta(request_uri, parametros, total_membros):
     for pagina in range(0, paginas):
         print pagina
         try:
-            url = "https://api.meetup.com" + request_uri + "?key="+ chave
+            url = "https://api.meetup.com" + request_uri + "?key=" + chave
             parametros['offset'] = pagina
             resposta = requests.get(url, params=parametros)
             dados.append(resposta.json()['results'])
@@ -46,10 +46,10 @@ def main():
     grupos = separa_grupos("dados/meetups_technology.json")
 
     for id_grupo, infos_grupo in grupos.items():
-        parametros = {"group_id": id_grupo, "page": 500}
-        dados = coleta("/2/members", parametros, infos_grupo[1])
+        parametros = {"group_id": id_grupo, "page": 500, "status": "past"}
+        dados = coleta("/2/events", parametros, infos_grupo[1])
         print infos_grupo[0]#nome do grupo e tamanho dos dados
-        grava_arquivo(dados, "dados/grupos/" + infos_grupo[0] + "_members_meetups_technology.json")
+        grava_arquivo(dados, "dados/eventos/" + infos_grupo[0] + "_events_meetups_technology.json")
 
 if __name__ == "__main__":
     main()
