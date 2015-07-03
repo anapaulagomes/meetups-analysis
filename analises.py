@@ -8,8 +8,10 @@ def ranking(dados):#ordenado pelo numero de membros
         print meetup['name'], meetup['members']
 
 def main():
-    dados = [json.loads(linha) for linha in open("meetups_technology.json")]
-    ranking(dados)
+    #dados = [json.loads(linha) for linha in open("meetups_technology.json")]
+    #ranking(dados)
+
+    
 
 if __name__ == "__main__":
     main()
