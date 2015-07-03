@@ -8,6 +8,9 @@ Parametros: {"location": "Belo Horizonte", "category": 34, "order": "most_active
 
 Coleta dos membros: "/2/members"
 Parametros: {"group_id": id_grupo, "page": 500}
+
+Coleta dos eventos (passados): "/2/events"
+Parametros: {"group_id": id_grupo, "page": 500, "status": "past"}
 """
 
 def coleta(request_uri, parametros, total_membros):
