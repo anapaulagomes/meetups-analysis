@@ -38,7 +38,7 @@ def grafo_usuarios_relacionados(usuarios_comunidades):#utf-8
             else:
                 G[no_anterior][no_sucessor]['weight'] = G[no_anterior][no_sucessor]['weight'] + 1
 
-    exibe_arestas_peso(G)
+    #exibe_arestas_peso(G)
     nx.write_gml(G, "resultados/grafos/grafo_usuarios_relacionadas.gml")
 
 def grafo_comunidades_relacionadas(usuarios_comunidades):#utf-8
@@ -57,10 +57,10 @@ def grafo_comunidades_relacionadas(usuarios_comunidades):#utf-8
             else:
                 G[no_anterior][no_sucessor]['weight'] = G[no_anterior][no_sucessor]['weight'] + 1
 
-    exibe_arestas_peso(G)
+    #exibe_arestas_peso(G)
     nx.write_gml(G, "resultados/grafos/grafo_comunidades_relacionadas.gml")
 
-def grafo_topicos(membros):
+def grafo_topicos(membros):#por meetup
     G = nx.Graph()
     for membro in membros:
         topicos = []
@@ -88,8 +88,8 @@ def exibe_arestas_peso(G):
         print aresta
 
 def main():
-    dados = [json.loads(linha) for linha in open("dados/membros_meetups.json")]#Google Developers Group - Belo Horizonte_members_meetups_technology
-    grafo_usuarios_relacionados(dados)
+    dados = [json.loads(linha) for linha in open("dados/grupos/Google Developers Group - Belo Horizonte_members_meetups_technology.json")]#Google Developers Group - Belo Horizonte_members_meetups_technology
+    grafo_topicos(dados)
 
 if __name__ == "__main__":
     main()
