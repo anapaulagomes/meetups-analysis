@@ -65,7 +65,7 @@ def separa_usuarios(diretorio_grupos):
                 print "Deu ruim :(", sys.exc_info()
     arquivo = open("dados/membros_meetups.json", "w")
     for usuario, meetups in usuarios.items():
-        arquivo.write(json.dumps({usuario.encode('utf-8'): meetups})+"\n")
+        arquivo.write(json.dumps({"usuario": usuario.encode('utf-8'), "meetups": meetups})+"\n")
     arquivo.close()
 
 def main():
