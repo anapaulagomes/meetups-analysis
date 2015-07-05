@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import os
+import sys
 from operator import itemgetter
 
 def topicos_relacionados(arquivo):
@@ -43,9 +44,32 @@ def ranking_topicos_meetup(arquivo_grupo):#"dados/grupos/Google Developers Group
     for topico in topicos:
         print "* ", topico[0].encode("utf-8"), round(float((topico[1] * 100))/total, 2), "%"
 
+def separa_usuarios(diretorio_grupos):
+    usuarios = {}#nome e meetups
+
+    for root, diretorio, arquivos in os.walk(diretorio_grupos, topdown=False):
+        for arquivo in arquivos:
+            meetup = arquivo[:arquivo.find("_")]
+
+            try:
+                dados = [json.loads(linha) for linha in open(os.path.join(root, arquivo))]
+                for usuario in dados:
+                    #print meetup, usuario['name']
+                    if usuarios.get(usuario['name']):
+                        temp = usuarios.get(usuario['name'])
+                        temp.append(meetup)
+                        usuarios[usuario['name']] = temp
+                    else:
+                        usuarios[usuario['name']] = [meetup]
+            except:
+                print "Deu ruim :(", sys.exc_info()
+    arquivo = open("dados/membros_meetups.json", "w")
+    for usuario, meetups in usuarios.items():
+        arquivo.write(json.dumps({usuario.encode('utf-8'): meetups})+"\n")
+    arquivo.close()
+
 def main():
-    dados = [json.loads(linha) for linha in open("dados/meetups_technology.json")]
-    ranking(dados)
+    separa_usuarios("dados/grupos/")
 
 if __name__ == "__main__":
     main()
